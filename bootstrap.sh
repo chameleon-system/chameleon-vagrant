@@ -48,6 +48,7 @@ echo "Step [5/6] - Importing database"
 # TODO import database
 
 echo "Step [6/6] - Installing composer packages"
+# TODO this bootstrapping part should be performed by a separate docker - k8s Init Container style
 chmod 755 /home/vagrant/installcomposer.sh
 chown www-data:www-data /home/vagrant/installcomposer.sh
 docker exec -i $(docker ps | grep 'php' | awk '{print $1}') chown www-data:www-data /var/www
