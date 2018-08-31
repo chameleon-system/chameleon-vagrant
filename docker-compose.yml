@@ -1,0 +1,50 @@
+memcached:
+  image: memcached:1.5
+  stdin_open: true
+  tty: true
+  command:
+  - memcached
+  - -m
+  - '64'
+apache:
+  image: chameleonsystem/docker-services:httpd-2.4
+  environment:
+    SERVICE_USER_ID: '33'
+    SERVICE_USER_NAME: www-data
+    VHOST_CUSTOM_CONFIG: ''
+  stdin_open: true
+  volumes:
+  - /home/wwwusers/chameleon:/usr/local/apache2/htdocs
+  tty: true
+php:
+  image: chameleonsystem/docker-services:php-7.1-fpm
+  environment:
+    BLACKFIRE_CLIENT_ID: foo
+    BLACKFIRE_CLIENT_TOKEN: bar
+    EPP_BLACKFIRE: 'false'
+    EPP_SHOW_ERRORS: 'false'
+    EPP_XDEBUG: 'false'
+    SERVICE_USER_ID: '33'
+    SERVICE_USER_NAME: www-data
+  stdin_open: true
+  volumes:
+  - /home/wwwusers/chameleon:/usr/local/apache2/htdocs
+  - /home/vagrant/installcomposer.sh:/usr/local/bin/installcomposer.sh
+  tty: true
+memcached-session:
+  image: memcached:1.5
+  stdin_open: true
+  tty: true
+  command:
+  - memcached
+  - -m
+  - '16'
+mysql:
+  image: chameleonsystem/docker-services:mariadb-10.1
+  environment:
+    MYSQL_ROOT_PASSWORD: chameleon
+    TZ: Europe/Berlin
+  stdin_open: true
+  volumes:
+  - chameleon_mysql:/var/lib/mysql
+  tty: true
