@@ -69,6 +69,7 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
   config.vm.provision "file", source: "docker-compose.yml", destination: "$HOME/docker-compose.yml"
+  config.vm.provision "file", source: "apache.conf", destination: "$HOME/apache.conf"
   config.vm.provision "file", source: "installcomposer.sh", destination: "$HOME/installcomposer.sh"
   config.vm.provision :shell, path: "bootstrap.sh"
 end

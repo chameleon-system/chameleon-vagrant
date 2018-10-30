@@ -31,7 +31,7 @@ echo "Step [2/6] - Installing docker-compose..."
 curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose 
 
-echo "Step [3/6] - Installing chameleon sources"
+echo "Step [3/6] - Installing chameleon sources - downloading several hundred MB..."
 mkdir -p /home/wwwusers/chameleon
 cd /home/wwwusers/chameleon
 git clone https://github.com/chameleon-system/chameleon-system.git customer
@@ -40,14 +40,14 @@ git clone https://github.com/chameleon-system/chameleon-system.git customer
 # TODO parameters.yml creation
 chown -R www-data:www-data customer
 
-echo "Step [4/6] - Launching docker-compose application stack"
+echo "Step [4/6] - Launching docker-compose application stack..."
 cd ~vagrant
 docker-compose up -d
 
-echo "Step [5/6] - Importing database"
+echo "Step [5/6] - Importing database..."
 # TODO import database
 
-echo "Step [6/6] - Installing composer packages"
+echo "Step [6/6] - Installing composer packages..."
 # TODO this bootstrapping part should be performed by a separate docker - k8s Init Container style
 chmod 755 /home/vagrant/installcomposer.sh
 chown www-data:www-data /home/vagrant/installcomposer.sh

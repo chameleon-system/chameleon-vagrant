@@ -13,10 +13,11 @@ services:
     environment:
       SERVICE_USER_ID: '33'
       SERVICE_USER_NAME: www-data
-      VHOST_CUSTOM_CONFIG: ''
+      VHOST_CUSTOM_CONFIG: '/etc/apache.conf'
     stdin_open: true
     volumes:
     - /home/wwwusers/chameleon:/usr/local/apache2/htdocs
+    - /home/vagrant/apache.conf:/etc/apache.conf
     tty: true
     ports:
     - "80:80"
