@@ -48,10 +48,14 @@ services:
     image: chameleonsystem/docker-services:mariadb-10.1
     environment:
       MYSQL_ROOT_PASSWORD: chameleon
+      MYSQL_DATABASE: chameleon
+      MYSQL_USER: chameleon
+      MYSQL_PASSWORD: chameleon
       TZ: Europe/Berlin
     stdin_open: true
     volumes:
     - chameleon_mysql:/var/lib/mysql
+    - /home/wwwusers/chameleon/resources/database:/initial-database
     tty: true
 volumes:
   chameleon_mysql:
