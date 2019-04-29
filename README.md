@@ -12,7 +12,7 @@ Enter "vagrant up" in your shell.
 
 In case you have more than one network interface you will be asked to which of them the virtual machine should be bound. Usually that's the first one.
 
-The installation process will take several minutes. After the vagrant bootstrapping the chameleon installation process will be started.
+**The installation process will take several minutes**. After the vagrant bootstrapping the chameleon installation process will be started.
 
 If everything works as expected you should see a shell output like this:
 
