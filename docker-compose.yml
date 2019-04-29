@@ -8,19 +8,26 @@ services:
     - memcached
     - -m
     - '64'
+  proxy:
+    image: jwilder/nginx-proxy:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /home/vagrant/certs:/etc/nginx/certs
   apache:
     image: chameleonsystem/docker-services:httpd-2.4
     environment:
       SERVICE_USER_ID: '33'
       SERVICE_USER_NAME: www-data
       VHOST_CUSTOM_CONFIG: '/etc/apache.conf'
+      VIRTUAL_HOST: 'localhost'
     stdin_open: true
     volumes:
     - /home/wwwusers/chameleon:/usr/local/apache2/htdocs
     - /home/vagrant/apache.conf:/etc/apache.conf
     tty: true
-    ports:
-    - "80:80"
   php:
     image: chameleonsystem/docker-services:php-7.2-fpm
     environment:

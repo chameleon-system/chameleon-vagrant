@@ -23,8 +23,8 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
-  config.vm.network "forwarded_port", guest: 80, host: 80
-  config.vm.network "forwarded_port", guest: 443, host: 443
+  config.vm.network "forwarded_port", guest: 80, host: 3080
+  config.vm.network "forwarded_port", guest: 443, host: 3443
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
@@ -71,5 +71,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "file", source: "docker-compose.yml", destination: "$HOME/docker-compose.yml"
   config.vm.provision "file", source: "apache.conf", destination: "$HOME/apache.conf"
   config.vm.provision "file", source: "installcomposer.sh", destination: "$HOME/installcomposer.sh"
+  config.vm.provision "file", source: "certs/localhost.key", destination: "$HOME/certs/localhost.key"
+  config.vm.provision "file", source: "certs/localhost.crt", destination: "$HOME/certs/localhost.crt"
   config.vm.provision :shell, path: "bootstrap.sh"
 end

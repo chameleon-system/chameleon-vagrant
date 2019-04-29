@@ -82,8 +82,9 @@ echo "Step [5/6] - Installing composer packages..."
 # TODO this bootstrapping part should be performed by a separate docker - k8s Init Container style
 chmod 755 /home/vagrant/installcomposer.sh
 chown www-data:www-data /home/vagrant/installcomposer.sh
-docker exec -i $(docker ps | grep 'php' | awk '{print $1}') chown www-data:www-data /var/www
-docker exec -u www-data -i $(docker ps | grep 'php' | awk '{print $1}') /usr/local/bin/installcomposer.sh
+PHPDOCKER=$(docker ps | grep 'php' | awk '{print $1}')
+docker exec -i ${PHPDOCKER} chown www-data:www-data /var/www
+docker exec -u www-data -i ${PHPDOCKER} /usr/local/bin/installcomposer.sh
 
 echo "Step [6/6] - Importing database and mediapool..."
 # importing DB
@@ -95,6 +96,9 @@ docker exec -i ${MYSQLDOCKER} /bin/bash -c "echo \"INSERT INTO cms_portal_domain
 
 # importing mediapool
 rsync -a /home/wwwusers/chameleon/resources/mediapool/ /home/wwwusers/chameleon/customer/web/chameleon/mediapool/
+
+# creating initial user
+docker exec -u www-data -e APP_INITIAL_BACKEND_USER_NAME=admin -e APP_INITIAL_BACKEND_USER_PASSWORD=adminadminadmin -i ${PHPDOCKER} app/console chameleon_system:bootstrap:create_initial_backend_user -n
 
 echo "Ready! You should now be able to access chameleon at the given hostname. Remember restrictions for privileged ports!"
 # close fd=3
