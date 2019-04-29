@@ -22,12 +22,12 @@ services:
     ports:
     - "80:80"
   php:
-    image: chameleonsystem/docker-services:php-7.1-fpm
+    image: chameleonsystem/docker-services:php-7.2-fpm
     environment:
       BLACKFIRE_CLIENT_ID: foo
       BLACKFIRE_CLIENT_TOKEN: bar
       EPP_BLACKFIRE: 'false'
-      EPP_SHOW_ERRORS: 'false'
+      EPP_SHOW_ERRORS: 'true'
       EPP_XDEBUG: 'false'
       SERVICE_USER_ID: '33'
       SERVICE_USER_NAME: www-data
