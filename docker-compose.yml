@@ -8,6 +8,7 @@ services:
     - memcached
     - -m
     - '64'
+    restart: always
   proxy:
     image: jwilder/nginx-proxy:latest
     ports:
@@ -16,6 +17,7 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - /home/vagrant/certs:/etc/nginx/certs
+    restart: always
   apache:
     image: chameleonsystem/docker-services:httpd-2.4
     environment:
@@ -28,6 +30,7 @@ services:
     - /home/wwwusers/chameleon:/usr/local/apache2/htdocs
     - /home/vagrant/apache.conf:/etc/apache.conf
     tty: true
+    restart: always
   php:
     image: chameleonsystem/docker-services:php-7.2-fpm
     environment:
@@ -43,6 +46,7 @@ services:
     - /home/wwwusers/chameleon:/usr/local/apache2/htdocs
     - /home/vagrant/installcomposer.sh:/usr/local/bin/installcomposer.sh
     tty: true
+    restart: always
   memcached-session:
     image: memcached:1.5
     stdin_open: true
@@ -51,6 +55,7 @@ services:
     - memcached
     - -m
     - '16'
+    restart: always
   mysql:
     image: chameleonsystem/docker-services:mariadb-10.1
     environment:
@@ -64,5 +69,6 @@ services:
     - chameleon_mysql:/var/lib/mysql
     - /home/wwwusers/chameleon/resources/database:/initial-database
     tty: true
+    restart: always
 volumes:
   chameleon_mysql:
